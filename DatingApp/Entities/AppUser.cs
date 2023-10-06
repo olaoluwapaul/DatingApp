@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-//uses using System.ComponentModel.DataAnnotations;
+//using using System.ComponentModel.DataAnnotations;
 
 namespace DatingApp.Entities
 {
