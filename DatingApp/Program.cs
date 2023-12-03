@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
 //Add token service
-builder.Services.AddScoped<ITokenService, TokenService>();
+//builder.Services.AddScoped<ITokenService, TokenService>();
 
 //Validate Token
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
