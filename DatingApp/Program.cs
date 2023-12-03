@@ -20,6 +20,30 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddDbContext<AppDbContext>(opt =>
+{
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddCors();
+
+//Add token service
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+//Validate Token
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+//    options.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuerSigningKey = true,
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"])),
+//        ValidateIssuer = false,
+//        ValidateAudience = false
+//    };
+//});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,3 +66,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

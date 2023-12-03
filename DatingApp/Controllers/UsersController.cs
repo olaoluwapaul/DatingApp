@@ -22,7 +22,7 @@ namespace DatingApp.Controllers
         {
             var users = await _context.Users.ToListAsync();
 
-            return users;
+            return Ok(users);
         }
 
         [HttpGet("{id}")] //get one user
