@@ -27,12 +27,21 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors();
-
 builder.Services.AddScoped<ITokenService, TokenService>();
-
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding
+            .UTF8.GetBytes(builder.Configuration["TokenKey"])),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+        };
+    });
 
 var app = builder.Build();
 
@@ -48,9 +57,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 //Configure the HTTP request pipeline
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod()
+.WithOrigins("https://localhost:4200"));
 
+//asks if you have a valid token
 app.UseAuthentication();
+//ok you have a valid token, what are you allowed to do?
 app.UseAuthorization();
 
 app.MapControllers();
