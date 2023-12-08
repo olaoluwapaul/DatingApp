@@ -9,6 +9,7 @@ namespace DatingApp.Controllers
     [Authorize]
     public class UsersController : BaseApiController
     {
+
         private readonly AppDbContext _context;
 
         public UsersController(AppDbContext context) 

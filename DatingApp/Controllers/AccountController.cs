@@ -1,6 +1,7 @@
 ﻿using DatingApp.Data;
 using DatingApp.DTOs;
 using DatingApp.Entities;
+using DatingApp.Interfaces;
 using DatingApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,9 @@ namespace DatingApp.Controllers
     public class AccountController : BaseApiController
     {
         private readonly AppDbContext _context;
-        private readonly TokenService _tokenService;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(AppDbContext context, TokenService tokenService)
+        public AccountController(AppDbContext context, ITokenService tokenService)
         {
             _context = context;
             _tokenService = tokenService;

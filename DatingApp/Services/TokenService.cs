@@ -1,24 +1,28 @@
-﻿using DatingApp.Entities;
-using DatingApp.Interfaces;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using DatingApp.Entities;
+using DatingApp.Interfaces;
+using Microsoft.IdentityModel.Tokens;
+
+
+
 
 namespace DatingApp.Services
 {
     public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;
-        public TokenService(IConfiguration config)
-        {
+        public TokenService(IConfiguration config) 
+        { 
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
+
         public string CreateToken(AppUser user)
         {
-            var claims = new List<Claim>();
+            var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName);
+               new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
@@ -26,7 +30,7 @@ namespace DatingApp.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7), //Claims will expire after a week
+                Expires = DateTime.Now.AddDays(7), 
                 SigningCredentials = creds
             };
 
@@ -36,5 +40,7 @@ namespace DatingApp.Services
 
             return tokenHandler.WriteToken(token);
         }
+
     }
 }
+
