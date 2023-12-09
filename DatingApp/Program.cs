@@ -1,5 +1,5 @@
 using DatingApp.Extentions;
-
+using DatingApp.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +13,14 @@ builder.Services.AddIdentityServices(builder.Configuration);
 var app = builder.Build();
 
 
+    //Configure the HTTP request pipeline
 
-//Configure the HTTP request pipeline
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseCors(builder => builder
-.AllowAnyHeader()
-.AllowAnyMethod()
-.WithOrigins("https://localhost:4200"));
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .WithOrigins("https://localhost:4200"));
 
 // asks if you have a valid token
 app.UseAuthentication();
