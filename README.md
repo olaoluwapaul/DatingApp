@@ -1,7 +1,7 @@
 ![ASP Net Angular](https://github.com/olaoluwapaul/DatingApp/assets/102964080/48226ce8-1d98-4b12-b1e9-23c659e5b2b9)
 <snippet>
-  <content><![CDATA[
-# ${1:Dating App}
+  <content>
+# Dating App
 TODO: Write a project description
 ## Installation
 TODO: Describe the installation process
@@ -18,7 +18,7 @@ TODO: Write history
 ## Credits
 TODO: Write credits
 ## License
-TODO: Write license
-]]></content>
+TODO: Write the license
+</content>
   <tabTrigger>readme</tabTrigger>
 </snippet>
