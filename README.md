@@ -1,4 +1,4 @@
-![ASP Net Angular](https://github.com/olaoluwapaul/DatingApp/assets/102964080/48226ce8-1d98-4b12-b1e9-23c659e5b2b9)
+![dot-NET-Standard-Logo-Rectangle](https://github.com/olaoluwapaul/DatingApp/assets/102964080/a2e99c12-ca39-4d0e-ab85-7fed4623e473)
 <snippet>
   <content>
 # Dating App
