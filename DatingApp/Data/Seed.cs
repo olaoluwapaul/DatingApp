@@ -1,6 +1,5 @@
 ﻿using DatingApp.Entities;
 using System.Data.Entity;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -11,11 +10,9 @@ namespace DatingApp.Data
     {
         public static async Task SeedUsers(AppDbContext context)
         {
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
             if (await context.Users.AnyAsync()) return;
 
-            var userData = await File.ReadAllTextAsync(path + @"Data\UserSeedData.json"); 
+            var userData = await File.ReadAllTextAsync(@"Data/UserSeedData.json"); 
 
             var options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
 
