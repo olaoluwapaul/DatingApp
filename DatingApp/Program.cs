@@ -1,6 +1,7 @@
 using DatingApp.Data;
 using DatingApp.Extentions;
 using DatingApp.Middleware;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,8 +38,14 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
 {
+    //var context = services.GetRequiredService<AppDbContext>();
+    //await context.Database.MigrateAsync();
+    //await Seed.SeedUsers(context);
+
     var context = services.GetRequiredService<AppDbContext>();
-    await context.Database.MigrateAsync();
+
+    if (context.Database.IsSqlite()) await context.Database.MigrateAsync();
+
     await Seed.SeedUsers(context);
 }
 catch (Exception ex)

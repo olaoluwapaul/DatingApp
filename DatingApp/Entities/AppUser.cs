@@ -7,7 +7,7 @@ namespace DatingApp.Entities
         //[Key] 
         public int Id { get; set; }
         public string UserName { get; set; }
-        public byte[] PasswordHash { get; set; } //byte arrays for the password salt
+        public byte[] PasswordHash { get; set; } //byte arrays for the password hash
         public byte[] PasswordSalt { get; set; } //byte arrays for the password salt
         public DateOnly DateOfBirth { get; set; }
         public string KnownAs { get; set; }
