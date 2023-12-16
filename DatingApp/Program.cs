@@ -27,8 +27,6 @@ app.UseCors(builder => builder
 
 // asks if you have a valid token
 app.UseAuthentication();
-
-
 // ok, you have a valid token, what are you allowed to do?
 app.UseAuthorization();
 
@@ -38,14 +36,8 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
 {
-    //var context = services.GetRequiredService<AppDbContext>();
-    //await context.Database.MigrateAsync();
-    //await Seed.SeedUsers(context);
-
     var context = services.GetRequiredService<AppDbContext>();
-
-    if (context.Database.IsSqlite()) await context.Database.MigrateAsync();
-
+    await context.Database.MigrateAsync();
     await Seed.SeedUsers(context);
 }
 catch (Exception ex)
@@ -53,6 +45,7 @@ catch (Exception ex)
     var logger = services.GetService<ILogger<Program>>();
     logger.LogError(ex, "An error occured during migration");
 }
+
 
 app.Run();
 

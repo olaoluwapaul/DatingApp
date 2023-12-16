@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DatingApp.Data.Migrations
+namespace DatingApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231215180826_seededJsonData")]
-    partial class seededJsonData
+    [Migration("20231216173418_SeededData")]
+    partial class SeededData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

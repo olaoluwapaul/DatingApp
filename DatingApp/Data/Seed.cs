@@ -1,8 +1,8 @@
 ﻿using DatingApp.Entities;
-using System.Data.Entity;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Data
 {
@@ -10,27 +10,28 @@ namespace DatingApp.Data
     {
         public static async Task SeedUsers(AppDbContext context)
         {
-            if (await context.Users.AnyAsync()) return;
 
-             var userData = await File.ReadAllTextAsync("Data/UserSeedData.json"); 
-            //var userData = await File.ReadAllTextAsync(@"C:/Users/user/Desktop/UserSeedData.json");
-            
-            var options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
+                if (await context.Users.AnyAsync()) return;
 
-            var users = JsonSerializer.Deserialize<List<AppUser>>(userData, options);
+                var userData = await File.ReadAllTextAsync("Data/UserSeed.json");
 
-            foreach (var user in users )
-            {
-                using var hmac = new HMACSHA512();
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-                user.UserName = user.UserName.ToLower();
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
-                user.PasswordSalt = hmac.Key;
+                var users = JsonSerializer.Deserialize<List<AppUser>>(userData, options);
 
-                context.Users.Add(user);
-            }
+                foreach (var user in users)
+                {
+                    using var hmac = new HMACSHA512();
 
-            await context.SaveChangesAsync();
+                    user.UserName = user.UserName.ToLower();
+                    user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
+                    user.PasswordSalt = hmac.Key;
+
+                    context.Users.Add(user);
+                }
+
+                await context.SaveChangesAsync();
+      
         }
     }
 }
